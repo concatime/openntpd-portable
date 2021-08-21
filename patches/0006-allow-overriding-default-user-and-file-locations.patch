@@ -10,33 +10,35 @@ default user.
  1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/src/usr.sbin/ntpd/ntpd.h b/src/usr.sbin/ntpd/ntpd.h
-index 9305cf0cd9..fe22788005 100644
+index 9305cf0c..bfed5219 100644
 --- a/src/usr.sbin/ntpd/ntpd.h
 +++ b/src/usr.sbin/ntpd/ntpd.h
-@@ -36,10 +36,20 @@
+@@ -36,10 +36,22 @@
  
  #define MAXIMUM(a, b)	((a) > (b) ? (a) : (b))
  
-+#ifndef NTPD_USER
- #define	NTPD_USER	"_ntp"
+-#define	NTPD_USER	"_ntp"
 -#define	CONFFILE	"/etc/ntpd.conf"
 -#define DRIFTFILE	"/var/db/ntpd.drift"
 -#define	CTLSOCKET	"/var/run/ntpd.sock"
++#ifndef SYSCONFDIR
++#define SYSCONFDIR "/etc"
++#endif
++#ifndef RUNSTATEDIR
++#define RUNSTATEDIR LOCALSTATEDIR "/run"
++#endif
++#ifndef LOCALSTATEDIR
++#define LOCALSTATEDIR "/var"
 +#endif
 +
-+#ifndef	SYSCONFDIR
-+#define	SYSCONFDIR	"/etc"
++#ifndef NTPD_USER
++#define NTPD_USER "_ntp"
 +#endif
-+#define	CONFFILE	SYSCONFDIR "/ntpd.conf"
-+
-+#ifndef	LOCALSTATEDIR
-+#define	LOCALSTATEDIR	"/var"
-+#endif
-+#define	DRIFTFILE	LOCALSTATEDIR "/db/ntpd.drift"
-+#define	CTLSOCKET	LOCALSTATEDIR "/run/ntpd.sock"
++#define CONFFILE     SYSCONFDIR "/ntpd.conf"
++#define DRIFTFILE LOCALSTATEDIR "/db/ntpd.drift"
++#define CTLSOCKET   RUNSTATEDIR "/ntpd.sock"
  
  #define	INTERVAL_QUERY_NORMAL		30	/* sync to peers every n secs */
  #define	INTERVAL_QUERY_PATHETIC		60
 -- 
 2.31.1
-

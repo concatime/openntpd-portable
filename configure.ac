@@ -17,7 +17,7 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-AC_PREREQ([2.54])
+AC_PREREQ([2.69])
 
 AC_INIT([OpenNTPD], m4_esyscmd([tr -d '\n' < VERSION]))
 
@@ -26,6 +26,7 @@ AM_INIT_AUTOMAKE([subdir-objects foreign])
 AC_CONFIG_MACRO_DIR([m4])
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+m4_version_prereq([2.70], [], [AC_SUBST([runstatedir], ["${localstatedir}/run"])])
 
 AC_PROG_CC
 AC_PROG_CC_STDC

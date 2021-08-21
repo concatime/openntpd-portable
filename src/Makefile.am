@@ -27,6 +27,7 @@ dist_man_MANS = ntpctl.8 ntpd.8 ntpd.conf.5
 ntpd_CFLAGS = $(CFLAGS)
 ntpd_CFLAGS += -DSYSCONFDIR=\"$(sysconfdir)\"
 ntpd_CFLAGS += -DLOCALSTATEDIR=\"$(localstatedir)\"
+ntpd_CFLAGS += -DRUNSTATEDIR=\"$(runstatedir)\"
 
 ntpd_LDADD = $(PLATFORM_LDADD) $(PROG_LDADD) -lm
 ntpd_LDADD += $(top_builddir)/compat/libcompat.la
@@ -64,11 +65,11 @@ install-exec-hook:
 	@if ! test -d "$(DESTDIR)$(sysconfdir)"; then \
 		$(INSTALL) -m 755 -d "$(DESTDIR)$(sysconfdir)"; \
 	fi
-	@if ! test -d "$(DESTDIR)$(localstatedir)/run"; then \
-		$(INSTALL) -m 755 -d "$(DESTDIR)$(localstatedir)/run"; \
-	fi
 	@if ! test -d "$(DESTDIR)$(localstatedir)/db"; then \
 		$(INSTALL) -m 755 -d "$(DESTDIR)$(localstatedir)/db"; \
+	fi
+	@if ! test -d "$(DESTDIR)$(runstatedir)"; then \
+		$(INSTALL) -m 755 -d "$(DESTDIR)$(runstatedir)"; \
 	fi
 	@if @EGREP@ "^$(PRIVSEP_USER):" /etc/group >/dev/null; then \
 		: ; \
