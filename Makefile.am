@@ -21,11 +21,11 @@ ACLOCAL_AMFLAGS = -I m4
 EXTRA_DIST = README.md INSTALL VERSION ntpd.conf
 
 install-exec-hook:
-	@if [ ! -f "$(DESTDIR)$(sysconfdir)/ntpd.conf" ]; then \
-		$(INSTALL) -m 644 "$(srcdir)/ntpd.conf" "$(DESTDIR)$(sysconfdir)/ntpd.conf"; \
-	else \
+	@if test -f "$(DESTDIR)$(sysconfdir)/ntpd.conf"; then \
 		echo; \
 		echo " $(DESTDIR)$(sysconfdir)/ntpd.conf already exists, install will not overwrite"; \
+	else \
+		$(INSTALL) -m 644 "$(srcdir)/ntpd.conf" "$(DESTDIR)$(sysconfdir)/ntpd.conf"; \
 	fi
 
 uninstall-local:

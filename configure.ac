@@ -17,6 +17,8 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+AC_PREREQ([2.54])
+
 AC_INIT([OpenNTPD], m4_esyscmd([tr -d '\n' < VERSION]))
 
 AC_CANONICAL_HOST
@@ -28,9 +30,10 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AC_PROG_CC
 AC_PROG_CC_STDC
 AM_PROG_CC_C_O
+AC_PROG_EGREP
+AC_PROG_YACC
 AC_PROG_LIBTOOL
 LT_INIT
-AC_PROG_YACC
 
 DISABLE_COMPILER_WARNINGS
 
@@ -81,12 +84,12 @@ AC_ARG_ENABLE([https-constraint],
 
 AM_CONDITIONAL([HAVE_LIBTLS],
 	[test "x$ac_cv_func_tls_config_set_ca_mem" = xyes \
-	  -a "x$ac_cv_have_tls_write_3_arg" = xyes \
-	  -a "x$enable_https_constraint" != xno])
+	  && test "x$ac_cv_have_tls_write_3_arg" = xyes \
+	  && test "x$enable_https_constraint" != xno])
 
 if test "x$ac_cv_func_tls_config_set_ca_mem" = xyes \
-	-a "x$ac_cv_have_tls_write_3_arg" = xyes \
-	-a "x$enable_https_constraint" != xno; then
+	&& test "x$ac_cv_have_tls_write_3_arg" = xyes \
+	&& test "x$enable_https_constraint" != xno; then
         AC_DEFINE([HAVE_LIBTLS], [yes])
 fi
 

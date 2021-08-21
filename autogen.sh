@@ -3,7 +3,7 @@ set -e
 
 ./update.sh
 mkdir -p m4
-rm -fr autom4te.cache
+rm -Rf autom4te.cache
 autoreconf -i
 
 # Patch libtool 2.4.2 to pass -fstack-protector as a linker argument

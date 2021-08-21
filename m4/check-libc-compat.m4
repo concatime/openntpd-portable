@@ -100,7 +100,7 @@ AM_CONDITIONAL([HAVE_TIMINGSAFE_MEMCMP], [test "x$ac_cv_func_timingsafe_memcmp" 
 # Override arc4random_buf implementations with known issues
 AM_CONDITIONAL([HAVE_ARC4RANDOM_BUF],
 	[test "x$USE_BUILTIN_ARC4RANDOM" != xyes \
-	   -a "x$ac_cv_func_arc4random_buf" = xyes])
+	   && test "x$ac_cv_func_arc4random_buf" = xyes])
 
 # Check for getentropy fallback dependencies
 AC_CHECK_FUNC([getauxval])

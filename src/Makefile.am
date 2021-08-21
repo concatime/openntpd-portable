@@ -61,16 +61,16 @@ ntpd_SOURCES += util.c
 
 install-exec-hook:
 	@ln -f "$(DESTDIR)$(sbindir)/ntpd" "$(DESTDIR)$(sbindir)/ntpctl"
-	@if [ ! -d "$(DESTDIR)$(sysconfdir)" ]; then \
+	@if ! test -d "$(DESTDIR)$(sysconfdir)"; then \
 		$(INSTALL) -m 755 -d "$(DESTDIR)$(sysconfdir)"; \
 	fi
-	@if [ ! -d "$(DESTDIR)$(localstatedir)/run" ]; then \
+	@if ! test -d "$(DESTDIR)$(localstatedir)/run"; then \
 		$(INSTALL) -m 755 -d "$(DESTDIR)$(localstatedir)/run"; \
 	fi
-	@if [ ! -d "$(DESTDIR)$(localstatedir)/db" ]; then \
+	@if ! test -d "$(DESTDIR)$(localstatedir)/db"; then \
 		$(INSTALL) -m 755 -d "$(DESTDIR)$(localstatedir)/db"; \
 	fi
-	@if egrep "^$(PRIVSEP_USER):" /etc/group >/dev/null; then \
+	@if @EGREP@ "^$(PRIVSEP_USER):" /etc/group >/dev/null; then \
 		: ; \
 	else \
 		echo; \
@@ -78,7 +78,7 @@ install-exec-hook:
 		echo ; \
 		echo "   groupadd $(PRIVSEP_USER)" ; \
 	fi
-	@if egrep "^$(PRIVSEP_USER):" /etc/passwd >/dev/null; then \
+	@if @EGREP@ "^$(PRIVSEP_USER):" /etc/passwd >/dev/null; then \
 		: ; \
 	else \
 		echo; \
